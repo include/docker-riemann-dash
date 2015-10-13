@@ -13,7 +13,7 @@ I could use ```https://hub.docker.com/r/davidkelley/riemann-dash/``` but I don't
 
 ## Running / Burning config file via dockerize
 
-```docker run -d -e HOST:<HOST> -e PORT:<PORT> -p <PORT>:<PORT> include/docker-riemann-dash```
+```docker run -d -e HOST=<HOST> -e PORT=<PORT> -p <PORT>:<PORT> include/docker-riemann-dash```
 
 **Example:**
 

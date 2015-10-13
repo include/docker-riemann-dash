@@ -11,13 +11,13 @@ I could use ```https://hub.docker.com/r/davidkelley/riemann-dash/``` but I don't
 
 ```docker build -t include/docker-riemann-dash docker-riemann-dash/.```
 
-## Configure
+## Running / Burning config file via dockerize
 
-Right now config just edit and change```config.rb``` and rebuild this image.
+```docker run -d -e HOST:<HOST> -e PORT:<PORT> -p <PORT>:<PORT> include/docker-riemann-dash```
 
-## Run
+**Example:**
 
-```docker run -d -p 4567:4567 include/docker-riemann-dash```
+```docker run -d -e HOST:0.0.0.0 -e PORT=4567 -p 4567:4567 include/docker-riemann-dash```
 
 ## Fun
 

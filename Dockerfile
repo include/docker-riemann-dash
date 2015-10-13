@@ -14,8 +14,8 @@ RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.0.3.tar.gz && \
 
 WORKDIR /app/riemann-dash
 
-ADD config.rb /app/riemann-dash/config.rb
+ADD config.rb.tmpl /app/riemann-dash/config.rb.tmpl
 
-EXPOSE 4567
+ENTRYPOINT [ "dockerize", "-template", "/app/riemann-dash/config.rb.tmpl:/app/riemann-dash/config.rb"]
 
 CMD ["bin/riemann-dash", "config.rb"]

@@ -1,10 +1,10 @@
 # Example configuration file for riemann-dash.
 
 # Serve HTTP traffic on this port
-set  :port, {{ .Env.PORT }}
+set  :port, {{ if .Env.PORT }}{{ .Env.PORT }}{{else}}4567{{end}}
 
 # Answer queries sent to this IP address
-set  :bind, "{{ .Env.HOST }}"
+set :bind, "{{ if .Env.HOST }}{{ .Env.HOST}}{{else}}0.0.0.0{{end}}"
 
 riemann_base = '.'
 riemann_src = "#{riemann_base}/lib/riemann/dash"
@@ -23,5 +23,10 @@ config.store[:public] = "#{riemann_src}/public"
 
 # Save workspace configuration to Amazon S3 (you'll need to have the "fog"
 # gem installed)
+{{ if .Env.S3_BUCKET }}
+config.store[:ws_config] = 's3://{{ .Env.S3_BUCKET }}/config.json'
+config.store[:s3_config] = {:aws_access_key_id => "{{ .Env.AWS_ACCESS_KEY_ID }}", :aws_secret_access_key => "{{ .Env.AWS_SECRET_ACCESS_KEY }}"}
+{{else}}
 # config.store[:ws_config] = 's3://my-bucket/config.json'
 # config.store[:s3_config] = {:aws_access_key_id => "123ABC", :aws_secret_access_key => "789XYZ"}
+{{end}}

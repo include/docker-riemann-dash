@@ -17,7 +17,7 @@ I could use ```https://hub.docker.com/r/davidkelley/riemann-dash/``` but I don't
 
 **Example:**
 
-```docker run -d -e HOST:0.0.0.0 -e PORT=4567 -p 4567:4567 include/docker-riemann-dash```
+```docker run -d -e HOST=0.0.0.0 -e PORT=4567 -p 4567:4567 include/docker-riemann-dash```
 
 ## Fun
 

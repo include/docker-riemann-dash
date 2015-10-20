@@ -1,11 +1,13 @@
 FROM ruby:latest
 MAINTAINER include <francisco.cabrita@gmail.com>
 
-ADD https://github.com/jwilder/dockerize/releases/download/v0.0.3/dockerize-linux-amd64-v0.0.3.tar.gz \
-    /dockerize-linux-amd64-v0.0.3.tar.gz
+ENV DOCKERIZE_VERSION "0.0.3"
 
-RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.0.3.tar.gz && \
-    rm  dockerize-linux-amd64-v0.0.3.tar.gz && \
+ADD https://github.com/jwilder/dockerize/releases/download/v${DOCKERIZE_VERSION}/dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz \
+    /dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz
+
+RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz && \
+    rm  dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz && \
     gem install thin fog && \
     mkdir -p /app && \
     cd /app && \

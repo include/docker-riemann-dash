@@ -16,7 +16,7 @@ config.store[:controllers] = ["#{riemann_src}/controller"]
 config.store[:views] = "#{riemann_src}/views"
 
 # Specify a custom path to your workspace config.json
-config.store[:ws_config] = "#{riemann_base}/config/config.json"
+config.store[:ws_config] = "{{ if .Env.DATADIR }}{{ .Env.DATADIR }}/config.json{{else}}#{riemann_base}/config/config.json{{end}}"
 
 # Serve static files from this directory
 config.store[:public] = "#{riemann_src}/public"
@@ -24,9 +24,13 @@ config.store[:public] = "#{riemann_src}/public"
 # Save workspace configuration to Amazon S3 (you'll need to have the "fog"
 # gem installed)
 {{ if .Env.S3_BUCKET }}
+config.store[:provider] = 'AWS'
+config.store[:region] = '{{ if .Env.REGION }}{{ .Env.REGION }}{{ else }}eu-west-1{{ end }}'
 config.store[:ws_config] = 's3://{{ .Env.S3_BUCKET }}/config.json'
 config.store[:s3_config] = {:aws_access_key_id => "{{ .Env.AWS_ACCESS_KEY_ID }}", :aws_secret_access_key => "{{ .Env.AWS_SECRET_ACCESS_KEY }}"}
 {{else}}
+# config.store[:provider] = 'AWS'
+# config.store[:region] = '{{ if .Env.REGION }}{{ .Env.REGION }}{{ else }}eu-west-1{{ end }}'
 # config.store[:ws_config] = 's3://my-bucket/config.json'
 # config.store[:s3_config] = {:aws_access_key_id => "123ABC", :aws_secret_access_key => "789XYZ"}
 {{end}}

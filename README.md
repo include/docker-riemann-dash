@@ -33,6 +33,12 @@ docker run -d -e HOST=0.0.0.0                                  \
            include/docker-reimann-dash
 ```
 
+Alternative to this you can use ```lazy-start.sh```to kickstart a riemann-dash with default values. This will also mount as a volume your current directory into ```/vol``` inside your container to save your dashboards.
+
+```sh
+./lazy-start.sh
+```
+
 ## Fun
 
 Point your browser to ```http://<IPADDRESS>:8080```. Don't forget to change Riemann server address.

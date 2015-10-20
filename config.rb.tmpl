@@ -25,12 +25,11 @@ config.store[:public] = "#{riemann_src}/public"
 # gem installed)
 {{ if .Env.S3_BUCKET }}
 config.store[:provider] = 'AWS'
-config.store[:region] = '{{ if .Env.REGION }}{{ .Env.REGION }}{{ else }}eu-west-1{{ end }}'
 config.store[:ws_config] = 's3://{{ .Env.S3_BUCKET }}/config.json'
-config.store[:s3_config] = {:aws_access_key_id => "{{ .Env.AWS_ACCESS_KEY_ID }}", :aws_secret_access_key => "{{ .Env.AWS_SECRET_ACCESS_KEY }}"}
+config.store[:s3_config] = {:region => {{ .Env.REGION }}, :aws_access_key_id => "{{ .Env.AWS_ACCESS_KEY_ID }}", :aws_secret_access_key => "{{ .Env.AWS_SECRET_ACCESS_KEY }}"}
 {{else}}
 # config.store[:provider] = 'AWS'
 # config.store[:region] = '{{ if .Env.REGION }}{{ .Env.REGION }}{{ else }}eu-west-1{{ end }}'
 # config.store[:ws_config] = 's3://my-bucket/config.json'
-# config.store[:s3_config] = {:aws_access_key_id => "123ABC", :aws_secret_access_key => "789XYZ"}
+# config.store[:s3_config] = {:region => {{ .Env.REGION }}, :aws_access_key_id => "123ABC", :aws_secret_access_key => "789XYZ"}
 {{end}}
